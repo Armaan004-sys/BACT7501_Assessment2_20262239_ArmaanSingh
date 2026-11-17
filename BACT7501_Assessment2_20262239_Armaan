@@ -1,6 +1,7 @@
 class RequisitionSystem:
 
     requisition_counter = 10000
+    all_requisition = []
 
     def __init__(self, date, staff_id, staff_name, items):
 
@@ -44,6 +45,8 @@ class RequisitionSystem:
         
         self.requisition_id = RequisitionSystem.requisition_counter
         
+        RequisitionSystem.all_requisition.append(self)
+        
         print("Requisition ID:", self.requisition_id)
         
         return self.total
@@ -52,7 +55,7 @@ class RequisitionSystem:
         
         if self.total < 500:
             self.status = "Approved"
-            self.approval_reference = self.staff_id + str(self.requisition_id[-3:])
+            self.approval_reference = self.staff_id + str(self.requisition_id)[-3:]
         
         else:
             self.status = "Pending"
@@ -85,17 +88,43 @@ class RequisitionSystem:
 
         print("Updated Status:", self.status)
         print("Approval Reference:", self.approval_reference)
+        
+    def display_requisitions(self):
+        print("Requisition Details:")
 
+        for requisition in RequisitionSystem.all_requisition:
+            print("Date:", self.date)
+            print("Staff ID:", self.staff_id)
+            print("Staff name:", self.staff_name)
+            print("Requisition ID:", self.requisition_id)
+            print("Total: $", self.total)
+            print("Status:", self.status)
+            print("Approval Reference:", self.approval_reference)
+
+
+# requisition1 = RequisitionSystem("", "", "", [])
+
+# requisition1.add_requisition()
+
+# print("Requisition total:", requisition1.total)
+# print("Requisition items:", requisition1.items)
+# print("Status:", requisition1.status)
+# print("Approval Reference:", requisition1.approval_reference)
+# print("Manager Response:")
+# requisition1.respond_requisition("pending")
+
+# print("Final Requisition Status:", requisition1.status)
+
+# requisition1.display_requisition()
 
 requisition1 = RequisitionSystem("", "", "", [])
-
 requisition1.add_requisition()
+requisition1.approve_requisition()
 
-print("Requisition total:", requisition1.total)
-print("Requisition items:", requisition1.items)
-print("Status:", requisition1.status)
-print("Approval Reference:", requisition1.approval_reference)
-print("Manager Response:")
-requisition1.respond_requisition("pending")
 
-print("Final Requisition Status:", requisition1.status)
+requisition2 = RequisitionSystem("", "", "", [])
+requisition2.add_requisition()
+requisition2.approve_requisition()
+
+
+requisition1.display_requisitions()
