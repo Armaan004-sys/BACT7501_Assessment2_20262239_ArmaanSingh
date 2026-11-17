@@ -47,6 +47,21 @@ class RequisitionSystem:
         print("Requisition ID:", self.requisition_id)
         
         return self.total
+    
+    def approve_requisition(self):
+        
+        if self.total < 500:
+            self.status = "Approved"
+            self.approval_reference = self.staff_id + str(self.requisition_id[-3:])
+        
+        else:
+            self.status = "Pending"
+            self.approval_reference = "Not Available"
+        
+        print("Status:", self.status)
+        print("Approval Reference:", self.approval_reference)
+        
+        return self.status
 
 
 requisition1 = RequisitionSystem("", "", "", [])
@@ -55,5 +70,5 @@ requisition1.add_requisition()
 
 print("Requisition total:", requisition1.total)
 print("Requisition items:", requisition1.items)
-
-
+print("Status:", requisition1.status)
+print("Approval Reference:", requisition1.approval_reference)
