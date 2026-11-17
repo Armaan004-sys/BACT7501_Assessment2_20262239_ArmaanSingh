@@ -62,6 +62,29 @@ class RequisitionSystem:
         print("Approval Reference:", self.approval_reference)
         
         return self.status
+    
+    def respond_requisition(self, manager_decision):
+        if self.status != "Pending":
+            print("The requisition is not pending")
+            return
+        
+        if manager_decision.lower() == "approve":
+            self.status = "Approved"
+            self.approval_reference = self.staff_id + str(self.requisition_id)[-3:]
+        
+        elif manager_decision.lower() == "reject":
+            self.status = "Not Approved"
+            self.approval_reference = "Not Available"
+        
+        elif manager_decision.lower() == "pending":
+            self.status = "Pending"
+        
+        else:
+            print("Invalid manager decision")
+            return
+
+        print("Updated Status:", self.status)
+        print("Approval Reference:", self.approval_reference)
 
 
 requisition1 = RequisitionSystem("", "", "", [])
@@ -72,3 +95,7 @@ print("Requisition total:", requisition1.total)
 print("Requisition items:", requisition1.items)
 print("Status:", requisition1.status)
 print("Approval Reference:", requisition1.approval_reference)
+print("Manager Response:")
+requisition1.respond_requisition("pending")
+
+print("Final Requisition Status:", requisition1.status)
