@@ -1,5 +1,7 @@
 class RequisitionSystem:
 
+    requisition_counter = 10000
+
     def __init__(self, date, staff_id, staff_name, items):
 
         self.date = date
@@ -37,3 +39,21 @@ class RequisitionSystem:
                 break
 
         print("Total price: $", self.total)
+        
+        RequisitionSystem.requisition_counter += 1
+        
+        self.requisition_id = RequisitionSystem.requisition_counter
+        
+        print("Requisition ID:", self.requisition_id)
+        
+        return self.total
+
+
+requisition1 = RequisitionSystem("", "", "", [])
+
+requisition1.add_requisition()
+
+print("Requisition total:", requisition1.total)
+print("Requisition items:", requisition1.items)
+
+
