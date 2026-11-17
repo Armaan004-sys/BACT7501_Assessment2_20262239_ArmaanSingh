@@ -11,3 +11,29 @@ class RequisitionSystem:
         self.total = 0
         self.status = "Pending"
         self.approval_reference = "Not available"
+
+    def add_requisition(self):
+        print("Enter staff information:")
+
+        self.date = input("Date (DD-MM-YYYY): ")
+        self.staff_id = input("Staff ID: ")
+        self.staff_name = input("Staff Name: ")
+
+        self.items = []
+        self.total = 0
+
+        print("Enter requisition items:")
+
+        while True:
+            item_name = input("Item name: ")
+            item_price = float(input("Item price: $"))
+
+            self.items.append([item_name, item_price])
+            self.total += item_price
+
+            another_item = input("Add another item? (yes/no): ").lower()
+
+            if another_item == "no":
+                break
+
+        print("Total price: $", self.total)
