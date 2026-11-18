@@ -40,55 +40,55 @@ class RequisitionSystem:
                 break
 
         print("Total price: $", self.total)
-        
+
         RequisitionSystem.requisition_counter += 1
-        
+
         self.requisition_id = RequisitionSystem.requisition_counter
-        
+
         RequisitionSystem.all_requisition.append(self)
-        
+
         print("Requisition ID:", self.requisition_id)
-        
+
         return self.total
-    
+
     def approve_requisition(self):
-        
+
         if self.total < 500:
             self.status = "Approved"
             self.approval_reference = self.staff_id + str(self.requisition_id)[-3:]
-        
+
         else:
             self.status = "Pending"
             self.approval_reference = "Not Available"
-        
+
         print("Status:", self.status)
         print("Approval Reference:", self.approval_reference)
-        
+
         return self.status
-    
+
     def respond_requisition(self, manager_decision):
         if self.status != "Pending":
             print("The requisition is not pending")
             return
-        
+
         if manager_decision.lower() == "approve":
             self.status = "Approved"
             self.approval_reference = self.staff_id + str(self.requisition_id)[-3:]
-        
+
         elif manager_decision.lower() == "reject":
             self.status = "Not Approved"
             self.approval_reference = "Not Available"
-        
+
         elif manager_decision.lower() == "pending":
             self.status = "Pending"
-        
+
         else:
             print("Invalid manager decision")
             return
 
         print("Updated Status:", self.status)
         print("Approval Reference:", self.approval_reference)
-        
+
     def display_requisitions(self):
         print("Requisition Details:")
 
@@ -103,25 +103,25 @@ class RequisitionSystem:
 
     def requisition_statistics(self):
         total_submitted = len(RequisitionSystem.all_requisition)
-        
+
         approved = 0
         pending = 0
         not_approved = 0
-        
+
         for requisition in RequisitionSystem.all_requisition:
-            
+
             if requisition.status == "Approved":
                 approved += 1
             elif requisition.status == "Pending":
                 pending += 1
             elif requisition.status == "Not Approved":
                 not_approved += 1
-        
+
         print("Total Submitted:", total_submitted)
         print("Approved:", approved)
         print("Pending:", pending)
         print("Not Approved:", not_approved)
-        
+
         return total_submitted, approved, pending, not_approved
 
 # requisition1 = RequisitionSystem("", "", "", [])
@@ -148,7 +148,24 @@ requisition1.approve_requisition()
 requisition2 = RequisitionSystem("", "", "", [])
 requisition2.add_requisition()
 requisition2.approve_requisition()
+requisition2.respond_requisition("approve")
 
+
+requisition3 = RequisitionSystem("", "", "", [])
+requisition3.add_requisition()
+requisition3.approve_requisition()
+requisition3.respond_requisition("reject")
+
+
+requisition4 = RequisitionSystem("", "", "", [])
+requisition4.add_requisition()
+requisition4.approve_requisition()
+requisition4.respond_requisition("pending")
+
+
+requisition5 = RequisitionSystem("", "", "", [])
+requisition5.add_requisition()
+requisition5.approve_requisition()
 
 requisition1.display_requisitions()
 
