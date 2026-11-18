@@ -93,14 +93,36 @@ class RequisitionSystem:
         print("Requisition Details:")
 
         for requisition in RequisitionSystem.all_requisition:
-            print("Date:", self.date)
-            print("Staff ID:", self.staff_id)
-            print("Staff name:", self.staff_name)
-            print("Requisition ID:", self.requisition_id)
-            print("Total: $", self.total)
-            print("Status:", self.status)
-            print("Approval Reference:", self.approval_reference)
+            print("Date:", requisition.date)
+            print("Staff ID:", requisition.staff_id)
+            print("Staff name:", requisition.staff_name)
+            print("Requisition ID:", requisition.requisition_id)
+            print("Total: $", requisition.total)
+            print("Status:", requisition.status)
+            print("Approval Reference:", requisition.approval_reference)
 
+    def requisition_statistics(self):
+        total_submitted = len(RequisitionSystem.all_requisition)
+        
+        approved = 0
+        pending = 0
+        not_approved = 0
+        
+        for requisition in RequisitionSystem.all_requisition:
+            
+            if requisition.status == "Approved":
+                approved += 1
+            elif requisition.status == "Pending":
+                pending += 1
+            elif requisition.status == "Not Approved":
+                not_approved += 1
+        
+        print("Total Submitted:", total_submitted)
+        print("Approved:", approved)
+        print("Pending:", pending)
+        print("Not Approved:", not_approved)
+        
+        return total_submitted, approved, pending, not_approved
 
 # requisition1 = RequisitionSystem("", "", "", [])
 
@@ -117,6 +139,7 @@ class RequisitionSystem:
 
 # requisition1.display_requisition()
 
+
 requisition1 = RequisitionSystem("", "", "", [])
 requisition1.add_requisition()
 requisition1.approve_requisition()
@@ -128,3 +151,5 @@ requisition2.approve_requisition()
 
 
 requisition1.display_requisitions()
+
+requisition1.requisition_statistics()
